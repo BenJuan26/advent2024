@@ -9,6 +9,8 @@ import (
 	"github.com/spf13/pflag"
 )
 
+var usage = "valid commands:\n  add"
+
 func LatestDay() int {
 	max := 0
 
@@ -75,7 +77,7 @@ func main() {
 	pflag.Parse()
 	args := pflag.Args()
 	if len(args) < 1 {
-		panic("no command provided")
+		panic("no command provided\n\n" + usage)
 	}
 
 	if len(args) > 1 {
@@ -83,9 +85,9 @@ func main() {
 	}
 
 	switch args[0] {
-	case "addday":
+	case "add":
 		AddDay()
 	default:
-		panic(fmt.Sprintf("invalid command: %s", args[0]))
+		panic(fmt.Sprintf("invalid command: %s\n\n%s", args[0], usage))
 	}
 }
