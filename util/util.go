@@ -8,9 +8,15 @@ import (
 	"github.com/spf13/pflag"
 )
 
+var testmode *bool
+
+func init() {
+	testmode = pflag.BoolP("test", "t", false, "use test.txt instead of input.txt")
+	pflag.Parse()
+}
+
 func ReadInput() ([]string, error) {
-	testmode := pflag.BoolP("test", "t", false, "use test.txt instead of input.txt")
-	if *testmode {
+	if testmode != nil && *testmode {
 		return ReadFromFile("test.txt")
 	}
 
@@ -69,4 +75,11 @@ func ShouldRunPart1() bool {
 
 func ShouldRunPart2() bool {
 	return !ShouldRunPart1()
+}
+
+func Abs(n int) int {
+	if n < 0 {
+		return -n
+	}
+	return n
 }
